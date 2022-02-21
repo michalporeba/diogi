@@ -12,7 +12,7 @@ setup(
     version="0.1.0",
     author="Michal Poreba",
     license="MIT",
-    description="A library of tiny little functions to make development that little bit easier.",
+    description="A library of tiny little functions to help do more while doing less.",
     long_description=long_description(),
     long_description_content_type="text/markdown",
     url="https://github.com/michalporeba/diogi",
