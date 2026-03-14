@@ -48,11 +48,32 @@ representation of dicts and lists. In those cases my objects implement
 a public method `as_data(self)`. The `diog.conventions.to_data(obj: any)` 
 takes an object or a list of object, and reduces the input to data. 
 
+## Development
+
+This repository uses `uv` for environment and dependency management.
+
+Install the project and development dependencies:
+
+```bash
+uv sync --group dev
+```
+
+Run the test suite:
+
+```bash
+uv run pytest
+```
+
+Build the source distribution and wheel:
+
+```bash
+uv build
+```
+
 ## To Publish
 
 ```
-pipenv shell
-pipenv install
-python setup.py pytest
-python setup.py bdist_wheel
+uv sync --group dev
+uv run pytest
+uv build
 ```
