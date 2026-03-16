@@ -24,6 +24,9 @@ def test_always_a_list_function():
     assert [None] == aal(None)
     assert [None] == aal([None])
     assert [1, 2, 3] == aal([1, 2, 3])
+    assert [1, 2] == aal((1, 2))
+    assert [1, 2] == sorted(aal({1, 2}))
+    assert ["test"] == aal("test")
 
 
 def test_default_if_none():
@@ -37,6 +40,9 @@ def test_first_or_default():
     assert 9 == fod([], 9)
     assert 9 == fod(None, 9)
     assert 1 == fod([1, 2], 9)
+    assert 1 == fod((1, 2), 9)
+    assert 9 == fod((), 9)
+    assert fod("test", 9) is None
 
 
 def test_get_if_exists():

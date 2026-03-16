@@ -1,12 +1,15 @@
+import collections.abc
+
+
 def append_if_not_none(obj: any, value: any, key: str = None) -> any:
     if value is None:
         return obj
 
-    if key is None and list == type(obj):
+    if key is None and isinstance(obj, list):
         obj.append(value)
 
-    if key is not None and dict == type(obj):
-        if key not in obj.keys():
+    if key is not None and isinstance(obj, dict):
+        if key not in obj:
             obj[key] = []
         obj[key].append(value)
 
@@ -19,8 +22,10 @@ def always_a_list(obj: any) -> list:
     if the argument is a list already it gets returned verbatim
     but if it is not, it is wrapped into a list
     """
-    if list == type(obj):
+    if isinstance(obj, list):
         return obj
+    elif isinstance(obj, collections.abc.Iterable) and not isinstance(obj, (str, bytes)):
+        return list(obj)
     else:
         return [obj]
 
@@ -31,14 +36,13 @@ def default_if_none(obj: any, default: any) -> any:
     return obj
 
 
-def first_or_default(lst: list | None, default: any = None) -> any:
+def first_or_default(lst: any, default: any = None) -> any:
     if lst is None:
         return default
-    if list == type(lst):
-        if 0 == len(lst):
-            return default
-        else:
-            return lst[0]
+    if isinstance(lst, collections.abc.Iterable) and not isinstance(lst, (str, bytes)):
+        for item in lst:
+            return item
+        return default
     return None
 
 
@@ -46,8 +50,8 @@ def get_if_exists(obj: any, key: str | None, default: any = None) -> any:
     if obj is None or key is None:
         return default
 
-    if dict == type(obj):
-        if key in obj.keys():
+    if isinstance(obj, dict):
+        if key in obj:
             return obj[key]
         else:
             return default
@@ -62,7 +66,7 @@ def list_is_optional(obj: any) -> any:
     returns None if None is given, or an empty list
     returns a list otherwise
     """
-    if list == type(obj):
+    if isinstance(obj, list):
         if len(obj) == 0:
             return None
         elif len(obj) == 1:
@@ -75,9 +79,9 @@ def list_without_nones(lst: list) -> list:
 
 
 def none_if_empty(obj: any) -> any:
-    if list == type(obj) and len(obj) == 0:
+    if isinstance(obj, list) and len(obj) == 0:
         return None
-    if dict == type(obj) and len(obj.keys()) == 0:
+    if isinstance(obj, dict) and not obj:
         return None
     return obj
 
@@ -86,10 +90,10 @@ def set_if_not_none(obj: any, value: any, key: str = None) -> any:
     if value is None:
         return obj
 
-    if key is None and list == type(obj):
+    if key is None and isinstance(obj, list):
         obj.append(value)
 
-    if key is not None and dict == type(obj):
+    if key is not None and isinstance(obj, dict):
         obj[key] = value
 
     return obj
