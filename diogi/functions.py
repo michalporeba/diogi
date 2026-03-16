@@ -1,7 +1,11 @@
+from typing import Any, TypeVar, Iterable
 import collections.abc
 
+T = TypeVar('T')
+D = TypeVar('D')
 
-def append_if_not_none(obj: any, value: any, key: str = None) -> any:
+
+def append_if_not_none(obj: T, value: Any, key: str | None = None) -> T:
     if value is None:
         return obj
 
@@ -16,7 +20,7 @@ def append_if_not_none(obj: any, value: any, key: str = None) -> any:
     return obj
 
 
-def always_a_list(obj: any) -> list:
+def always_a_list(obj: Any) -> list[Any]:
     """
     returns a list no matter what is in the input.
     if the argument is a list already it gets returned verbatim
@@ -30,13 +34,13 @@ def always_a_list(obj: any) -> list:
         return [obj]
 
 
-def default_if_none(obj: any, default: any) -> any:
+def default_if_none(obj: T | None, default: T) -> T:
     if obj is None:
         return default
     return obj
 
 
-def first_or_default(lst: any, default: any = None) -> any:
+def first_or_default(lst: Iterable[T] | Any, default: D = None) -> T | D | None:
     if lst is None:
         return default
     if isinstance(lst, collections.abc.Iterable) and not isinstance(lst, (str, bytes)):
@@ -46,7 +50,7 @@ def first_or_default(lst: any, default: any = None) -> any:
     return None
 
 
-def get_if_exists(obj: any, key: str | None, default: any = None) -> any:
+def get_if_exists(obj: Any, key: str | None, default: T = None) -> Any | T:
     if obj is None or key is None:
         return default
 
@@ -60,7 +64,7 @@ def get_if_exists(obj: any, key: str | None, default: any = None) -> any:
     return attr
 
 
-def list_is_optional(obj: any) -> any:
+def list_is_optional(obj: list[T] | Any) -> T | list[T] | Any | None:
     """
     returns a dictionary if a dictionary or a list with just one item is provided
     returns None if None is given, or an empty list
@@ -74,11 +78,11 @@ def list_is_optional(obj: any) -> any:
     return obj
 
 
-def list_without_nones(lst: list) -> list:
+def list_without_nones(lst: Iterable[T | None]) -> list[T]:
     return [e for e in lst if e is not None]
 
 
-def none_if_empty(obj: any) -> any:
+def none_if_empty(obj: T) -> T | None:
     if isinstance(obj, list) and len(obj) == 0:
         return None
     if isinstance(obj, dict) and not obj:
@@ -86,7 +90,7 @@ def none_if_empty(obj: any) -> any:
     return obj
 
 
-def set_if_not_none(obj: any, value: any, key: str = None) -> any:
+def set_if_not_none(obj: T, value: Any, key: str | None = None) -> T:
     if value is None:
         return obj
 

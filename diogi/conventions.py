@@ -1,4 +1,7 @@
-def to_data(obj: any) -> dict | list | None:
+from typing import Any
+
+
+def to_data(obj: Any) -> dict[str, Any] | list[Any] | Any | None:
     """
     If the object passed as the argument of the function implements `as_data()`
     function then its return will be used, otherwise the object will be returned.
