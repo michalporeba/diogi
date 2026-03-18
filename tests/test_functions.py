@@ -103,7 +103,7 @@ def test_none_if_empty():
 def test_set_if_not_none_on_dictionary():
     d = {}
     sinn(d, None, "x")
-    assert "x" not in d.keys()
+    assert "x" not in d
     sinn(d, 2, "a")
     assert d["a"] == 2
     assert sinn(d, 5, "b")["b"] == 5

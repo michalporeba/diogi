@@ -43,16 +43,28 @@ exclude = [
 ]
 
 [tool.ruff.lint]
-# Select rules:
-# E: pycodestyle errors
-# F: Pyflakes
-# I: isort
-# B: flake8-bugbear
-# UP: pyupgrade
-select = ["E", "F", "I", "B", "UP"]
+select = [
+    "ARG",
+    "E",    # pycodestyle errors
+    "F",    # Pyflakes
+    "FBT",
+    "I",    # isort import ordering
+    "B",    # flake8-bugbear correctness and footgun checks
+    "UP",   # pyupgrade modern Python syntax suggestions
+    "SIM",  # flake8-simplify opportunities to reduce redundant logic
+    "C4",   # flake8-comprehensions checks for unnecessary comprehensions
+    "PIE",  # flake8-pie miscellaneous readability and correctness checks
+    "PL",
+    "PT",   # flake8-pytest-style pytest-specific test conventions
+    "RET",  # flake8-return consistency for explicit return behavior
+    "S",
+    "TCH",  # flake8-type-checking import hygiene for typing-only imports
+    "RUF",  # Ruff-specific rules for cleanup and consistency
+    "PERF", # Perflint performance-focused suggestions
+]
 
 # Ignore certain rules if they clash with your style
-ignore = ["F405"]
+ignore = []
 
 [tool.ruff.lint.isort]
 known-first-party = ["diogi"]
@@ -66,14 +78,16 @@ testpaths = ["tests"]
 
 [tool.ruff.lint.per-file-ignores]
 "tests/*" = [
+    "ARG",     # Unused function args -> fixtures nevertheless are functionally relevant...
     "F403",    # don't complain about import *
     "F405",    # don't complain about undefined functions
-    "S101",    # asserts allowed in tests...
-    "ARG",     # Unused function args -> fixtures nevertheless are functionally relevant...
     "FBT",     # Don't care about booleans as positional arguments in tests, e.g. via @pytest.mark.parametrize()
     "PLR2004", # Magic value used in comparison, ...
+    "S101",    # asserts allowed in tests...
     "S311",    # Standard pseudo-random generators are not suitable for cryptographic purposes
+    "SIM300",  # In tests yoda asserts are prefered for readability
 ]
 "diogi/aliases.py" = [
     "F403",
+    "F405",
 ]

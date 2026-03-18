@@ -29,12 +29,9 @@ def always_a_list(obj: Any) -> list[Any]:
     """
     if isinstance(obj, list):
         return obj
-    elif isinstance(obj, collections.abc.Iterable) and not isinstance(
-        obj, (str, bytes)
-    ):
+    if isinstance(obj, collections.abc.Iterable) and not isinstance(obj, (str, bytes)):
         return list(obj)
-    else:
-        return [obj]
+    return [obj]
 
 
 def default_if_none(obj: T | None, default: T) -> T:
@@ -60,11 +57,9 @@ def get_if_exists(obj: Any, key: str | None, default: T = None) -> Any | T:
     if isinstance(obj, dict):
         if key in obj:
             return obj[key]
-        else:
-            return default
+        return default
 
-    attr = getattr(obj, key, default)
-    return attr
+    return getattr(obj, key, default)
 
 
 def list_is_optional(obj: list[T] | Any) -> T | list[T] | Any | None:
@@ -76,7 +71,7 @@ def list_is_optional(obj: list[T] | Any) -> T | list[T] | Any | None:
     if isinstance(obj, list):
         if len(obj) == 0:
             return None
-        elif len(obj) == 1:
+        if len(obj) == 1:
             return obj[0]
     return obj
 
