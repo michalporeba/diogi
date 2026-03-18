@@ -1,8 +1,9 @@
-from typing import Any, TypeVar, Iterable
 import collections.abc
+from collections.abc import Iterable
+from typing import Any, TypeVar
 
-T = TypeVar('T')
-D = TypeVar('D')
+T = TypeVar("T")
+D = TypeVar("D")
 
 
 def append_if_not_none(obj: T, value: Any, key: str | None = None) -> T:
@@ -28,7 +29,9 @@ def always_a_list(obj: Any) -> list[Any]:
     """
     if isinstance(obj, list):
         return obj
-    elif isinstance(obj, collections.abc.Iterable) and not isinstance(obj, (str, bytes)):
+    elif isinstance(obj, collections.abc.Iterable) and not isinstance(
+        obj, (str, bytes)
+    ):
         return list(obj)
     else:
         return [obj]

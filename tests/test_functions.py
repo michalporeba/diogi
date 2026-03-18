@@ -73,8 +73,8 @@ def test_get_if_exists_with_default():
     assert "c" == gie(None, "key", "c")
     assert "d" == gie({"a": 2}, "wrong", "d")
 
-    assert 123 == gie(T(), 'value')
-    assert 'abc' == gie(T, 'property')
+    assert 123 == gie(T(), "value")
+    assert "abc" == gie(T, "property")
 
 
 def test_list_is_optional_function():
